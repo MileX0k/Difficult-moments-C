@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <string>
-#include <sstream>
+#include <numeric>
 
 using namespace std;
 
@@ -38,12 +38,6 @@ vector<T> Insert_Sorted(vector<T> &v1, T n) {
 
 	return v1;
 }
-
-//===========================TASK 2=============================================
-
-
-
-
 
 
 int main()
@@ -94,14 +88,25 @@ int main()
 	vector<double> db(100);
 	vector<int> in;
 	generate(db.begin(), db.end(), []() {double i = 1+rand()/ (double)100; return i; });
-	cout << "Analog: " << endl;
-	PrintVector(db);
+	//cout << "Analog: " << endl;
+	//PrintVector(db);                   //Выводит 100 значений с запятой
 
 	transform(db.begin(), db.end(), back_inserter(in), [](double i)->int {return i; });
-	cout << "Digital: " << endl;
-	PrintVector(in);
+	//cout << "Digital: " << endl;
+	//PrintVector(in);                  //Выводит 100 значений без запятой
 
-	// ДОДЕЛАТЬ ОЧЕНЬ ИНТЕРЕСНО)
+	vector<double> result;
+	transform(db.begin(), db.end(), in.begin(), back_inserter(result), minus<double>());
+	//cout << "Minus: " << endl;
+	//PrintVector(result);             //Выводит поэлементное вычитание двух векторов
 
+	transform(result.begin(), result.end(), result.begin(), [](double i) { return i * i; });
+	//cout << "i*i: " << endl;
+	//PrintVector(result);             //Выводит квадраты каждого элемента
+
+	double sum = accumulate(result.begin(), result.end(), 0.0);
+	cout << "Result = " << sum << endl; //Выводит конечную суммы всех элементов
+
+	cout << endl;
 
 }
