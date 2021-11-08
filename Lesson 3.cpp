@@ -79,6 +79,42 @@ public:
 	}
 };
 
+//===========================TASK 3=============================================
+
+class My_Iter {
+private:
+	int* ptr;
+	size_t cur_pos;
+	size_t size_cont;
+public:
+
+	My_Iter(size_t size) {
+		cur_pos = 0;
+		size_cont = size;
+		ptr = new int[size_cont];
+	}
+
+	void Add(int i) {
+		ptr[cur_pos] = i;
+		++cur_pos;
+	}
+
+	int* begin() {
+		return &ptr[0];
+	}
+
+	int* end() {
+		return &ptr[cur_pos];
+	}
+
+	~My_Iter() {
+		delete[] ptr;
+	}
+};
+
+
+
+
 int main()
 {
 //===========================TASK 1=============================================
@@ -116,5 +152,18 @@ int main()
 	cout << "The determinant of the triple matrix: " << m3.Determinant() << endl;
 
 	cout << endl;
+
+//===========================TASK 3=============================================
+
+	cout << "------TASK 3------" << endl;
+
+	My_Iter i1(4);
+	i1.Add(5);
+	i1.Add(1);
+
+	for (auto& n : i1)
+		cout << n << " ";
+	cout << endl;
+
 
 }
